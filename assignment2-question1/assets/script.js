@@ -4,7 +4,6 @@ let randomNum = Math.floor(Math.random() * 10) + 1;
 let didPlay = false;
 
 guessGame.addEventListener("submit", function(e){
-	console.log(randomNum);
 	//prevent form from submitting
   e.preventDefault();
  
@@ -26,13 +25,13 @@ guessGame.addEventListener("submit", function(e){
   if (choice == randomNum){
   	result.innerHTML = 'You win! <br/>';
   }else{
-  	result.innerHTML = 'You lose! <br/>';
+	result.innerHTML = `Guessed wrong, I was thinking ${randomNum} <br/>`;
   }
   
   //add a reset button
   let button = document.createElement("button");
 	button.innerHTML = "Play again!"; 
-  button.setAttribute("id", "reset");
+	button.setAttribute("id", "reset");
 	result.appendChild(button);
   
   //disable the submit button so they will have to reset
@@ -48,6 +47,6 @@ document.addEventListener('click',function(e){
           document.querySelector("input[name='choice']").value = '';
           randomNum = Math.floor(Math.random() * 10) + 1;
           document.querySelector("input[name='submit']").disabled = false;
-           document.querySelector("#result").setAttribute("style", "display: none;");
+          document.querySelector("#result").setAttribute("style", "display: none;");
      }
 });
