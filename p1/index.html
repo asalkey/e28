@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="assets/style.css">
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script src="assets/script.js" defer></script> 
+        <title>Guessing game</title>
+    </head>
+    <body>
+        <div id="app" v-cloak>
+            <h1>I am thinking of a number between 1 and 10</h1>
+            <form @submit.prevent="guessGame" >
+                <label>Your guess:</label>
+                <input type="number" name="choice" min="1" max="10">
+                <input type="submit" name="submit" />
+            </form>
+            <template id="result" v-if="didPlay">
+                <p v-if="choice == randomNum"> You win!</p>
+                <p v-else> Guessed wrong, I was thinking {{randomNum}}</p>
+                <button @click="resetGame">Play Again</button>
+            </template>
+        </div>
+    </body>
+</html>
