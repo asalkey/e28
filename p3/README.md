@@ -1,24 +1,13 @@
-# p3
+# Project 3
++ By: *Andrea Salkey*
++ Production URL: <http://p3.andrea.codes>
 
-## Project setup
-```
-npm install
-```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## Outline of features
+*A blog with 4 pages allowing you to save your favourite posts to local storage and view them on a page*
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## Outside resources
+*Bootstrap*
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Notes for instructor
+*Any notes for me to refer to while grading; if none, omit this section.*
