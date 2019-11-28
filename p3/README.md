@@ -8,6 +8,3 @@
 
 ## Outside resources
 *Bootstrap*
-
-## Notes for instructor
-*Any notes for me to refer to while grading; if none, omit this section.*
