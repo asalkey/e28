@@ -6,8 +6,7 @@ Andrea Salkey
 + Reviwee's name: 
 Grace Punzalan
 
-+ URL to reviewee's Github repo: *<https://github.com/example/e28>*
-https://github.com/gpunzalan18/e28/
++ URL to reviewee's Github repo: https://github.com/gpunzalan18/e28/
 
 *Answer the following questions in regards to the student's project you are reviewing. Include context and code examples in your answers when relevant.*
 
