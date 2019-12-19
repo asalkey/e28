@@ -4,16 +4,75 @@
         <span class='post-date'>{{post.post_date}}</span>
         <div class='post-content'>{{post.post_content}}</div>
         <button class='btn btn-primary' @click='fave(post.id)'> add to faves </button>
-        <router-link :to='{ name: "posts"}'> Back to all posts</router-link>
+        <form @submit.prevent="handleSubmit(post)">
+          <div class="form-group">
+            <input type="text" :class='{ "form-input-error": $v.rating.author.$error }' class="form-control" placeholder="Enter your name" v-model="$v.rating.author.$model" />
+            <div v-if='$v.rating.author.$error'>
+                    <div class='form-feedback-error' v-if='!$v.rating.author.required'>Your name is required.</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <textarea :class='{ "form-input-error": $v.rating.author.$error }' v-model="$v.rating.comment.$model"></textarea>
+             <div v-if='$v.rating.comment.$error'>
+                    <div class='form-feedback-error' v-if='!$v.rating.comment.minLength'>Feedback needs to be atleast 30 characters</div>
+                    <div class='form-feedback-error' v-if='!$v.rating.comment.required'>Please enter feedback</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <input type="number" min="0" max="10" :class='{ "form-input-error": $v.rating.score.$error }' v-model="$v.rating.score.$model"/>
+            <div v-if='$v.rating.score.$error'>
+                <div class='form-feedback-error' v-if='!$v.rating.score.required'>Enter a score</div>
+                <div class='form-feedback-error' v-if='!$v.rating.score.between'>Enter a score between 0-10</div>
+            </div>
+            <input type="submit"/>
+          </div>
+          <div class='form-feedback-error' v-if='formHasErrors'>Correct the errors before submitting</div>
+        </form>
+        <div class="ratings">
+            {{post.post_rating}}
+        </div>
+        <router-link :to='{ name:"posts"}'> Back to all posts</router-link>
     </div>
 </template>
 
 <script>
 import * as app from './../../app.js';
+import { required, between,minLength } from 'vuelidate/lib/validators';
 
 export default {
     name: 'PostPage',
     props: ['id'],
+    data: function(){
+        return {
+            rating: {
+                author: '',
+                score: '',
+                comment:'',
+            },
+            formHasErrors: false
+        }
+            
+    },
+    validations: {
+        rating: {
+            author: {
+                required,
+            },
+            score: {
+                required,
+                between: between(0, 10)
+            },
+            comment: {
+                required,
+                minLength: minLength(30)
+            }
+        }
+    },
+    watch: {
+        '$v.$anyError': function() {
+            this.formHasErrors = this.$v.$anyError;
+        }
+    },
     computed: {
         post: function() {
             return this.$store.getters.getPostByID(this.id);
@@ -23,6 +82,23 @@ export default {
         fave: function (id) {
             let faves = new app.Faves();
             faves.create(id);
+        },
+        handleSubmit: function(post){
+            this.$v.$touch();
+            
+            let correctID = post.id - 1;
+            let ratings = {"post_rating": this.rating};
+            let newPost = {...post,...ratings}
+            
+            if (!this.$v.$invalid) {
+                app.axios.put(app.config.api + 'posts/' + correctID + '.json', newPost) .then(response => {
+                        this.$store.commit('updatePost', this.rating );
+                });
+                
+                this.formHasErrors = false;
+            }else{
+                this.formHasErrors = this.$v.$anyError;
+            }
         }
   }
 };

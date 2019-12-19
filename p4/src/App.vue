@@ -1,14 +1,22 @@
 <template>
-  <div id="app">
-    <nav class="navbar navbar-expand navbar-dark flex-column flex-md-row bg-dark">
-        <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
-            <li v-for='link in links' :key='link' class='nav-item'>
-                <router-link :to='{name: link}' class='nav-link' exact>{{ link }}</router-link>
-            </li>
-        </ul>
-    </nav>
-    <div class='container'>
-        <router-view></router-view>
+  <div id="app" class="container-fluid">
+    <div class="row flex-xl-nowrap">
+        <div div class="col-12">
+            <nav class="navbar navbar-expand navbar-dark bg-dark">
+                <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+                    <li v-for='link in links' :key='link' class='nav-item'>
+                        <router-link :to='{name: link}' class='nav-link' exact>{{ link }}</router-link>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <div class="row flex-xl-nowrap">
+        <div class="col-12">
+            <div class="d-flex justify-content-center">
+                <router-view></router-view>
+            </div>
+        </div>
     </div>
   </div>
 </template>
@@ -19,7 +27,7 @@ export default {
   data: function (){
         return {
             page: 'home',
-            links: ['home', 'posts','faves']
+            links: ['home', 'posts','faves','ratings']
         }
   },
   mounted() { 
