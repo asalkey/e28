@@ -1,6 +1,6 @@
 <template>
     <div class='post' v-if='post'>
-        <router-link :to='{ name: "post", params: {"id" : post.id }}'>
+        <router-link data-test='post-link' :to='{ name: "post", params: {"id" : post.id }}'>
             <h1 class='post-title'>{{post.post_title}}</h1>
         </router-link>
         <span class='post-date'>{{post.post_date}}</span>
