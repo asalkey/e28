@@ -6,7 +6,7 @@
                 <router-link :to='{ name: "post", params: {"id" : item }}'>
                     <h1 class='post-title'>{{getFave(item)['post_title']}}</h1>
                 </router-link>
-                <button @click='removeFave(item)'>Remove</button>
+                <button class="btn btn-outline-danger" @click='removeFave(item)'>Remove</button>
             </span>
         </div>
     </div>

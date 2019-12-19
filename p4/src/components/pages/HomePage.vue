@@ -1,6 +1,6 @@
 <template>
     <div>
-        <p>Welcome to my webpage</p>
+        <h1>Final project for E28</h1>
         <router-link :to='{name: "posts"}'> view my posts </router-link>
     </div>
 </template>

@@ -3,33 +3,40 @@
         <h1 class='post-title'>{{post.post_title}}</h1>
         <span class='post-date'>{{post.post_date}}</span>
         <div class='post-content'>{{post.post_content}}</div>
+        <hr>
         <button class='btn btn-primary' @click='fave(post.id)'> add to faves </button>
-        <form @submit.prevent="handleSubmit(post)">
-          <div class="form-group">
-            <input type="text" :class='{ "form-input-error": $v.rating.author.$error }' class="form-control" placeholder="Enter your name" v-model="$v.rating.author.$model" />
-            <div v-if='$v.rating.author.$error'>
-                    <div class='form-feedback-error' v-if='!$v.rating.author.required'>Your name is required.</div>
-            </div>
-          </div>
-          <div class="form-group">
-            <textarea :class='{ "form-input-error": $v.rating.author.$error }' v-model="$v.rating.comment.$model"></textarea>
-             <div v-if='$v.rating.comment.$error'>
-                    <div class='form-feedback-error' v-if='!$v.rating.comment.minLength'>Feedback needs to be atleast 30 characters</div>
-                    <div class='form-feedback-error' v-if='!$v.rating.comment.required'>Please enter feedback</div>
-            </div>
-          </div>
-          <div class="form-group">
-            <input type="number" min="0" max="10" :class='{ "form-input-error": $v.rating.score.$error }' v-model="$v.rating.score.$model"/>
-            <div v-if='$v.rating.score.$error'>
-                <div class='form-feedback-error' v-if='!$v.rating.score.required'>Enter a score</div>
-                <div class='form-feedback-error' v-if='!$v.rating.score.between'>Enter a score between 0-10</div>
-            </div>
-            <input type="submit"/>
-          </div>
-          <div class='form-feedback-error' v-if='formHasErrors'>Correct the errors before submitting</div>
-        </form>
-        <div class="ratings">
-            {{post.post_rating}}
+        <hr>
+        <div class='ratings' v-if='!post.post_rating'>
+            <h5>Rate this post: </h5>
+            <div class="alert alert-danger" v-if='formHasErrors'>Correct the errors before submitting</div>
+            <form @submit.prevent="handleSubmit(post)">
+                <div class="form-group">
+                    <label> Name: </label>
+                    <input type="text" :class='{ "form-input-error": $v.rating.author.$error }' class="form-control" placeholder="Enter your name" v-model="$v.rating.author.$model" />
+                <div v-if='$v.rating.author.$error'>
+                        <div class='alert alert-warning' v-if='!$v.rating.author.required'>Your name is required.</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Feedback: </label>
+                    <textarea class="form-control"  v-model="$v.rating.comment.$model"></textarea>
+                    <div v-if='$v.rating.comment.$error'>
+                        <div class='alert alert-warning' v-if='!$v.rating.comment.minLength'>Feedback needs to be atleast 30 characters</div>
+                        <div class='alert alert-warning' v-if='!$v.rating.comment.required'>Please enter feedback</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Score:</label>
+                    <input type="number" min="0" max="10" class="form-control"  v-model="$v.rating.score.$model"/>
+                    <div v-if='$v.rating.score.$error'>
+                        <div class='alert alert-warning' v-if='!$v.rating.score.required'>Enter a score</div>
+                        <div class='alert alert-warning' v-if='!$v.rating.score.between'>Enter a score between 0-10</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Submit review" class="btn btn-info"/>
+                </div>
+            </form>
         </div>
         <router-link :to='{ name:"posts"}'> Back to all posts</router-link>
     </div>
