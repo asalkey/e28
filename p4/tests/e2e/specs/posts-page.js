@@ -19,8 +19,6 @@ describe('posts-page', () => {
         
         cy.get('[data-test="post-link').contains(post.post_title).click();
 
-        cy.contains('[data-test="post-link"]', post.post_title)
-        cy.url().should('include', post.id)
 
     })
 

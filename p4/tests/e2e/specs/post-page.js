@@ -37,10 +37,10 @@ describe('post-page', () => {
     
     it('add review', () => {
         cy.visit('/post/' + post.post_id);
-        cy.get('[data-test=rating-author]').type(rating.author);
-        cy.get('[data-test=rating-comment]').type(rating.comment);
-        cy.get('[data-test=rating-score]').type(rating.score);
-        cy.get('[data-test=rating-button]').click();
+        cy.get('[data-test="rating-author"]').type(rating.author);
+        cy.get('[data-test="rating-comment"]').type(rating.comment);
+        cy.get('[data-test="rating-score"]').type(rating.score);
+        cy.get('[data-test="rating-button"]').click();
         cy.get('[data-test="rating-confirmation"]').should('exist');
         
         cy.visit('/ratings');
