@@ -1,5 +1,6 @@
 <template>
     <div id='posts'>
+        <h2> Posts </h2>
         <show-post
             v-for='post in posts'
             :key='post.id'

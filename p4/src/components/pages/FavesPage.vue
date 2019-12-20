@@ -1,12 +1,12 @@
 <template>
-    <div id='faves'>
+    <div data-test="faves" id='faves'>
         <div v-if='items.length == 0'>No faves</div>
         <div v-else-if='posts.length > 0'>
             <span v-for='item in items' :key='item'>
                 <router-link :to='{ name: "post", params: {"id" : item }}'>
                     <h1 class='post-title'>{{getFave(item)['post_title']}}</h1>
                 </router-link>
-                <button class="btn btn-outline-danger" @click='removeFave(item)'>Remove</button>
+                <button data-test="remove-fave" class="btn btn-outline-danger" @click='removeFave(item)'>Remove</button>
             </span>
         </div>
     </div>

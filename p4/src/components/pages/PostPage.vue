@@ -1,17 +1,18 @@
 <template>
     <div id="post-page" v-if='post'>
-        <h1 class='post-title'>{{post.post_title}}</h1>
-        <span class='post-date'>{{post.post_date}}</span>
+        <h1 data-test='post-title' class='post-title'>{{post.post_title}}</h1>
+        <h1 data-test='post-author' class='post-author'>{{post.post_author}}</h1>
+        <span data-test='post-date' class='post-date'>{{post.post_date}}</span>
         <div class='post-content'>{{post.post_content}}</div>
         <hr>
         <transition name='fade'>
-            <div class='alert alert-success' v-if='favesAdded'>You faved this!</div>
+            <div data-test='faves-confirmation' class='alert alert-success' v-if='favesAdded'>You faved this!</div>
         </transition>
-        <button class='btn btn-primary' @click='fave(post.id)'> add to faves </button>
+        <button data-test='faves-button' class='btn btn-primary' @click='fave(post.id)'> add to faves </button>
         <hr>
         <div class='ratings' v-if='!post.post_rating'>
             <transition name='fade'>
-                <div class='alert alert-success' v-if='ratingAdded'>Rating added!</div>
+                <div data-test='rating-confirmation' class='alert alert-success' v-if='ratingAdded'>Rating added!</div>
             </transition>
             <div id="ratings-form">
                 <h5>Rate this post: </h5>
@@ -19,14 +20,14 @@
                 <form @submit.prevent="handleSubmit(post)">
                     <div class="form-group">
                         <label> Name: </label>
-                        <input type="text" :class='{ "form-input-error": $v.rating.author.$error }' class="form-control" placeholder="Enter your name" v-model="$v.rating.author.$model" />
+                        <input data-test='rating-author' type="text" :class='{ "form-input-error": $v.rating.author.$error }' class="form-control" placeholder="Enter your name" v-model="$v.rating.author.$model" />
                     <div v-if='$v.rating.author.$error'>
                             <div class='alert alert-warning' v-if='!$v.rating.author.required'>Your name is required.</div>
                         </div>
                     </div>
                     <div class="form-group">
                         <label>Feedback: </label>
-                        <textarea class="form-control"  v-model="$v.rating.comment.$model"></textarea>
+                        <textarea data-test='rating-comment' class="form-control"  v-model="$v.rating.comment.$model"></textarea>
                         <div v-if='$v.rating.comment.$error'>
                             <div class='alert alert-warning' v-if='!$v.rating.comment.minLength'>Feedback needs to be atleast 30 characters</div>
                             <div class='alert alert-warning' v-if='!$v.rating.comment.required'>Please enter feedback</div>
@@ -34,14 +35,14 @@
                     </div>
                     <div class="form-group">
                         <label>Score:</label>
-                        <input type="number" min="0" max="10" class="form-control"  v-model="$v.rating.score.$model"/>
+                        <input data-test='rating-score' type="number" min="0" max="10" class="form-control"  v-model="$v.rating.score.$model"/>
                         <div v-if='$v.rating.score.$error'>
                             <div class='alert alert-warning' v-if='!$v.rating.score.required'>Enter a score</div>
                             <div class='alert alert-warning' v-if='!$v.rating.score.between'>Enter a score between 0-10</div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <input type="submit" value="Submit review" class="btn btn-info"/>
+                        <input data-test='rating-button' type="submit" value="Submit review" class="btn btn-info"/>
                     </div>
                 </form>
             </div>
